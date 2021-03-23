@@ -16,6 +16,7 @@ public class AnimalResponse {
 	
 	@Data @NoArgsConstructor
 	class ResponseBody {
+		private int totalCount;
 		private ResponseItems items;
 	}
 	
