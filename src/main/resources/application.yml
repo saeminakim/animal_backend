@@ -7,7 +7,7 @@ server:
   
 spring:
   application:
-    name: saeminakim
+    name: animal
   profiles:
     active: default 
   rabbitmq:

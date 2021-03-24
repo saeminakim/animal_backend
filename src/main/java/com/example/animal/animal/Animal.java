@@ -43,6 +43,7 @@ public class Animal {
 	private long noticeSdt;
 	private long noticeEdt;
 	private String processState;
+	private int totalCount;
 	
 	public Animal(AnimalResponse.ResponseItem res) {
 		
@@ -63,6 +64,7 @@ public class Animal {
 		this.noticeSdt = res.getNoticeSdt();
 		this.noticeEdt = res.getNoticeEdt();
 		this.processState = res.getProcessState();
+
 	}
 
 	@OneToMany
