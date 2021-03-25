@@ -26,9 +26,10 @@ public class AdoptionRequestController {
 		this.service = service;
 	}
 	
-	@PostMapping(value="/create-request")
-	public boolean createApplication(AdoptionRequest request) {
-		return true;
+	@PostMapping(value="/apply")
+	public AdoptionRequest createApplication(@RequestBody AdoptionRequest request) {
+		adoptionRepo.save(request);
+		return request;
 	}
 	
 	@GetMapping(value="/request/search")

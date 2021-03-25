@@ -43,7 +43,6 @@ public class Animal {
 	private long noticeSdt;
 	private long noticeEdt;
 	private String processState;
-	private int totalCount;
 	
 	public Animal(AnimalResponse.ResponseItem res) {
 		

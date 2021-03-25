@@ -1,8 +1,5 @@
 package com.example.animal.animal;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +22,22 @@ public class AnimalController {
 		this.animalRepo = animalRepo;
 	}
 
+	// 목록 조회
 	@GetMapping(value = "/animals")
 	public Page<Animal> getAnimalList(@RequestParam("page") int page, @RequestParam("size") int size) {
 		return animalRepo.findAll(PageRequest.of(page, size, Sort.by("id").descending()));
 	}
 
-//	@GetMapping(value = "/animals")
-//	public List<Animal> getAnimalList(HttpServletRequest req) {
-//		List<Animal> list = animalRepo.findAll(Sort.by("id").descending());
-//		return list;
-//	}
-
+	// id로 1건 조회
 	@GetMapping(value = "/animals/{id}")
 	public @ResponseBody Animal getAnimalDetails(@PathVariable long id, HttpServletResponse res) {
-		return null;
+		Animal animal = animalRepo.findById(id).orElse(null);
+		
+		if(animal == null) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}
+		return animal;
 	}
 
 //	필터링하는 메소드 추가해야 함

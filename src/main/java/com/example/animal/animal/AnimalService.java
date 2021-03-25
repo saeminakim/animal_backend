@@ -3,10 +3,11 @@ package com.example.animal.animal;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import org.json.JSONObject;
 import org.json.XML;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.example.animal.animal.AnimalResponse.ResponseItem;
 import com.google.gson.Gson;
 
 @Service
@@ -41,10 +43,6 @@ public class AnimalService {
 		cal.add(Calendar.MONTH, -1);
 
 		String monthAgo = df.format(cal.getTime());
-
-//		System.out.println("----날짜 출력----");
-//		System.out.println("검색시작 : " + monthAgo);
-//		System.out.println("검색종료 : " + today);		
 
 		getAnimal(today, monthAgo);
 	}
@@ -77,11 +75,16 @@ public class AnimalService {
 
 			// 4. 문자열로 변환
 			String data = new String(result);
-
-			String xmlString = data.toString();
+			System.out.println("----data----");
+			System.out.println(data);
+//
+//			String xmlString = data.toString();
+//			System.out.println("----xmlString----");
+//			System.out.println(xmlString);
 
 			// 5. XML -> JSON 변환
-			JSONObject json = XML.toJSONObject(xmlString);
+			JSONObject json = XML.toJSONObject(data);
+
 
 			String jsonPrettyPrintString = json.toString(4);
 
@@ -93,7 +96,9 @@ public class AnimalService {
 //	        System.out.println(totalCount);
 
 			// 7. 응답 데이터 가공
-			for (AnimalResponse.ResponseItem item : res.getResponse().getBody().getItems().getItem()) {
+			List<ResponseItem> list = res.getResponse().getBody().getItems().getItem();
+			Collections.reverse(list);
+			for (AnimalResponse.ResponseItem item : list) {
 
 				Animal animal = new Animal(item);
 
@@ -119,11 +124,8 @@ public class AnimalService {
 				if (!animal.getProcessState().contains("종료")) {
 
 					// DB의 공고번호와 새로 가져온 애니멀 객체의 공고번호 비교 후 DB에 없다면 저장
-
 					Animal savedAnimal = animalRepo.findByNoticeNo(animal.getNoticeNo());
-
 					if (savedAnimal == null) {
-
 						animalRepo.save(animal);
 					}
 				}
