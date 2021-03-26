@@ -25,7 +25,7 @@ public class AnimalController {
 	// 목록 조회
 	@GetMapping(value = "/animals")
 	public Page<Animal> getAnimalList(@RequestParam("page") int page, @RequestParam("size") int size) {
-		return animalRepo.findAll(PageRequest.of(page, size, Sort.by("id").descending()));
+		return animalRepo.findAll(PageRequest.of(page, size, Sort.by("happenDt").descending()));
 	}
 
 	// id로 1건 조회

@@ -1,5 +1,7 @@
 package com.example.animal.request;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,23 +28,26 @@ public class AdoptionRequestController {
 		this.service = service;
 	}
 	
+	// 1건 추가
 	@PostMapping(value="/apply")
 	public AdoptionRequest createApplication(@RequestBody AdoptionRequest request) {
 		adoptionRepo.save(request);
 		return request;
 	}
 	
-	@GetMapping(value="/request/search")
-	public AdoptionRequest getApplication(@RequestParam("requestNo") String requestNo, @RequestParam("name") String name) {
-		return null;
+	// 1건 조회
+	@GetMapping(value="/apply/search")
+	public List<AdoptionRequest> getApplication(@RequestParam("requestNo") String requestNo, @RequestParam("name") String name, HttpServletResponse res) {
+		return adoptionRepo.findByRequestNoAndName(requestNo, name);
+		
 	}
 	
-	@PutMapping(value="/request/{id}")
+	@PutMapping(value="/apply/{id}")
 	public boolean editApplication(@PathVariable("id") int id, @RequestBody AdoptionRequest request, HttpServletResponse res) {
 		return true;
 	}
 	
-	@PostMapping(value="/request/{id}")
+	@PostMapping(value="/apply/{id}")
 	public boolean cancelApplication(@PathVariable("id") int id) {
 		return true;
 	}

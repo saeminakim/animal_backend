@@ -1,5 +1,8 @@
 package com.example.animal.animal;
 
-public class AnimalHandler {
+import org.xml.sax.helpers.DefaultHandler;
 
+public class AnimalHandler extends DefaultHandler {
+
+	private static final String ITEMS = "items";
 }

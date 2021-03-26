@@ -21,7 +21,7 @@ import com.google.gson.Gson;
 @Service
 public class AnimalService {
 
-	private String serviceKey = "y62vvVnWf5WvQNEv9RAklWtI21VtI2QjebPFXKg6yYEsDk13Ujkfz0LS5Nb%2FaGcN%2BXbzLed6pJWi2CQKXDNYag%3D%3D";
+	private String serviceKey = "mjbSlSItCYAFiRSVR2xCQ%2BSJVNW%2BqfnSU%2B9RALx54IWluxDCgII99r29wSYKlw0ds1hNzcf2aT6ANkye4HH1Rw%3D%3D";
 	private AnimalRepository animalRepo;
 
 	@Autowired
@@ -30,7 +30,7 @@ public class AnimalService {
 	}
 
 //	@Scheduled(fixedRate = 1000 * 60 * 30)
-	@Scheduled(cron = "0 0 * * * *")
+	@Scheduled(cron = "0 0 10 * * *") // 매일 오전 10시 실행
 	public void requestAnimalHourlyData() throws IOException {
 
 		// 현재 날짜, 한달 전 날짜 구한 후 getAnimal()의 매개변수로 넘겨주며 호출
@@ -62,6 +62,7 @@ public class AnimalService {
 			builder.append("&bgnde=" + monthAgo);
 			builder.append("&endde=" + today);
 			builder.append("&pageNo=" + page);
+			builder.append("&numOfRows=100");
 			// builder.append("&pageNo=1&numOfRows=10");
 			// builder.append("&numOfRows=30");
 
@@ -75,8 +76,6 @@ public class AnimalService {
 
 			// 4. 문자열로 변환
 			String data = new String(result);
-			System.out.println("----data----");
-			System.out.println(data);
 //
 //			String xmlString = data.toString();
 //			System.out.println("----xmlString----");
@@ -96,9 +95,8 @@ public class AnimalService {
 //	        System.out.println(totalCount);
 
 			// 7. 응답 데이터 가공
-			List<ResponseItem> list = res.getResponse().getBody().getItems().getItem();
-			Collections.reverse(list);
-			for (AnimalResponse.ResponseItem item : list) {
+
+			for (AnimalResponse.ResponseItem item : res.getResponse().getBody().getItems().getItem()) {
 
 				Animal animal = new Animal(item);
 
@@ -119,6 +117,16 @@ public class AnimalService {
 
 				String gugun = sido.substring(sido.indexOf(" ") + 1);
 				animal.setGugun(gugun);
+				
+				// 성별 한글로 변환
+				String gender = animal.getSexCd();
+				if(gender.equals("M")) {
+					animal.setSexCd("남");
+				} else if(gender.equals("F")) {
+					animal.setSexCd("여");
+				} else {
+					animal.setSexCd("미상");
+				}
 
 				// 종료가 아닌 모든 상태의 유기동물정보 저장
 				if (!animal.getProcessState().contains("종료")) {
@@ -131,7 +139,7 @@ public class AnimalService {
 				}
 			}
 
-			// 총 공고 페이지 수만큼 반복문 실행
+//			 총 공고 페이지 수만큼 반복문 실행
 			page += 1;
 			System.out.println("페이지 수 : " + page);
 			System.out.println("totalCount : " + totalCount);
