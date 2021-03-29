@@ -21,7 +21,7 @@ import com.google.gson.Gson;
 @Service
 public class AnimalService {
 
-	private String serviceKey = "mjbSlSItCYAFiRSVR2xCQ%2BSJVNW%2BqfnSU%2B9RALx54IWluxDCgII99r29wSYKlw0ds1hNzcf2aT6ANkye4HH1Rw%3D%3D";
+	private String serviceKey = "IhgvagJ8Tmo5EmpS4azcLIGde2OhTHpsNrp6n%2FbrfXYN9GEU7bYRzJZn3tbe2VOEY8k1mPGZGfVFfXzbQdpGHA%3D%3D";
 	private AnimalRepository animalRepo;
 
 	@Autowired
@@ -30,7 +30,7 @@ public class AnimalService {
 	}
 
 //	@Scheduled(fixedRate = 1000 * 60 * 30)
-	@Scheduled(cron = "0 0 10 * * *") // 매일 오전 10시 실행
+	@Scheduled(cron = "0 0 9 * * *") // 매일 오전 9시 실행
 	public void requestAnimalHourlyData() throws IOException {
 
 		// 현재 날짜, 한달 전 날짜 구한 후 getAnimal()의 매개변수로 넘겨주며 호출
@@ -76,10 +76,6 @@ public class AnimalService {
 
 			// 4. 문자열로 변환
 			String data = new String(result);
-//
-//			String xmlString = data.toString();
-//			System.out.println("----xmlString----");
-//			System.out.println(xmlString);
 
 			// 5. XML -> JSON 변환
 			JSONObject json = XML.toJSONObject(data);
@@ -90,9 +86,8 @@ public class AnimalService {
 			// 6. JSON -> POJO 변환
 			AnimalResponse res = new Gson().fromJson(jsonPrettyPrintString, AnimalResponse.class);
 
+			// 전체 공고 수 
 			totalCount = res.getResponse().getBody().getTotalCount();
-//	        System.out.println("----totalCount----");
-//	        System.out.println(totalCount);
 
 			// 7. 응답 데이터 가공
 
