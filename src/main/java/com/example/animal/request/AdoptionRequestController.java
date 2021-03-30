@@ -14,26 +14,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.animal.animal.AnimalRepository;
 
 @RestController
 public class AdoptionRequestController {
 	private AdoptionRequestRepository adoptionRepo;
-	private AnimalRepository animalRepo;
 	private AdoptionRequestService service;
 
 	@Autowired
-	AdoptionRequestController(AdoptionRequestRepository adoptionRepo, AnimalRepository animalRepo,
-			AdoptionRequestService service) {
+	AdoptionRequestController(AdoptionRequestRepository adoptionRepo, AdoptionRequestService service) {
 		this.adoptionRepo = adoptionRepo;
-		this.animalRepo = animalRepo;
 		this.service = service;
 	}
 
 	// 1건 추가
 	@PostMapping(value = "/apply")
 	public AdoptionRequest createApplication(@RequestBody AdoptionRequest request) {
+		
+		adoptionRepo.
+		
 		adoptionRepo.save(request);
+		service.sendApplication(request);
 		return request;
 	}
 
@@ -76,6 +76,7 @@ public class AdoptionRequestController {
 		}
 
 		adoptionRepo.save(request);
+		service.sendApplication(request);
 
 		return app;
 	}
@@ -95,7 +96,7 @@ public class AdoptionRequestController {
 		adoptionRepo.save(request);
 		
 		// 2. 관리자에게 메시지 전송
-//		service.deleteApplication(app);
+		service.deleteApplication(app);
 		
 		return true;
 	}

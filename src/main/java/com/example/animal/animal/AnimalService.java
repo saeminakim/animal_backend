@@ -30,7 +30,7 @@ public class AnimalService {
 	}
 
 //	@Scheduled(fixedRate = 1000 * 60 * 30)
-	@Scheduled(cron = "0 0 9 * * *") // 매일 오전 9시 실행
+	@Scheduled(cron = "0 0 10 * * *") // 매일 오전 10시 실행
 	public void requestAnimalHourlyData() throws IOException {
 
 		// 현재 날짜, 한달 전 날짜 구한 후 getAnimal()의 매개변수로 넘겨주며 호출
