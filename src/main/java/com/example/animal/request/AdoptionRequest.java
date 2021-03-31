@@ -16,7 +16,7 @@ public class AdoptionRequest {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private long requestNo;
+	private String requestNo;
 	private int animalId;
 	private String noticeNo;
 	private String name;
@@ -32,5 +32,6 @@ public class AdoptionRequest {
 	private String houseType;
 	private String reason;
 	private String status;
+	private String animalImg;
 	
 }

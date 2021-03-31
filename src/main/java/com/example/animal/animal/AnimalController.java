@@ -40,6 +40,11 @@ public class AnimalController {
 		return animal;
 	}
 
-//	필터링하는 메소드 추가해야 함
+	// 시도 검색 
+	@GetMapping(value = "/animals/filter")
+	public Page<Animal> getAnimalListBySido(@RequestParam("sido") String sido, @RequestParam("page") int page, @RequestParam("size") int size) {
+
+		return animalRepo.findBySido(sido, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+	}
 
 }

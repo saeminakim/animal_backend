@@ -1,9 +1,12 @@
 package com.example.animal.request;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -30,7 +33,16 @@ public class AdoptionRequestController {
 	@PostMapping(value = "/apply")
 	public AdoptionRequest createApplication(@RequestBody AdoptionRequest request) {
 		
-		adoptionRepo.
+		// 입양신청번호 생성
+		String uniqueId = "";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+		Calendar date = Calendar.getInstance();
+		uniqueId = sdf.format(date.getTime());
+		
+		uniqueId = uniqueId + RandomStringUtils.randomAlphanumeric(4);
+		
+		request.setRequestNo(uniqueId);
+		System.out.println(request);
 		
 		adoptionRepo.save(request);
 		service.sendApplication(request);
