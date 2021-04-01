@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AdoptionRequestRepository extends JpaRepository<AdoptionRequest, Integer> {
-	public List<AdoptionRequest> findByRequestNoAndName(long requestNo, String name);
+	public List<AdoptionRequest> findByRequestNoAndName(String requestNo, String name);
 
 }

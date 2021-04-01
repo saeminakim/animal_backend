@@ -9,11 +9,16 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.xml.sax.SAXException;
 
 import com.example.animal.animal.AnimalResponse.ResponseItem;
 import com.google.gson.Gson;
@@ -76,7 +81,33 @@ public class AnimalService {
 
 			// 4. 문자열로 변환
 			String data = new String(result);
-
+			
+//			SAXParserFactory factory = SAXParserFactory.newInstance();
+//			try {
+//				SAXParser parser = factory.newSAXParser();
+//				AnimalHandler handler = new AnimalHandler();
+//				parser.parse(data, handler);
+//				
+//				List<Animal> list = handler.getAnimalList();
+//				System.out.println("------리스트------");
+//				System.out.println(list);
+//				
+//				for(Animal a : list) {
+//					System.out.println("동물 정보 : " + a);
+//				}
+//				
+//				
+//
+//				
+//			} catch (ParserConfigurationException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (SAXException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			
+//
 			// 5. XML -> JSON 변환
 			JSONObject json = XML.toJSONObject(data);
 
@@ -136,9 +167,11 @@ public class AnimalService {
 
 //			 총 공고 페이지 수만큼 반복문 실행
 			page += 1;
-			System.out.println("페이지 수 : " + page);
-			System.out.println("totalCount : " + totalCount);
-			if (page > totalCount / 10) {
+			double pageDouble = (double)totalCount / 100;
+			int pageCount = (int)Math.round(pageDouble);
+			System.out.println("page : " + page);
+			System.out.println("pageCount : " + pageCount);
+			if (page > pageCount) {
 				break;
 			}
 		}

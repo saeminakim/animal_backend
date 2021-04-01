@@ -18,6 +18,7 @@ public class AdoptionRequestService {
 		this.adoptionRepo = adoptionRepo;
 	}
 	
+	// 새 입양신청서 관리자에게 전송 
 	public void sendApplication(AdoptionRequest request) {
 		System.out.println("-----SEND APPLICATION-----");
 		System.out.println(request);
@@ -34,13 +35,22 @@ public class AdoptionRequestService {
 		System.out.println("-----UPDATE APPLICATION-----");
 	}
 	
-	public void deleteApplication(AdoptionRequest request) {
-		System.out.println("-----DELETE APPLICATION-----");
+	// 취소 요청 관리자에게 전송
+	public void cancelApplication(AdoptionRequest request) {
+		System.out.println("-----CANCEL APPLICATION-----");
+		
+		try {
+			rabbit.convertAndSend("adoption.request", request);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
+	// 보낸 메시지 받아주는 메소드
 	@RabbitListener(queues = "manager.application.status")
 	public void receiveApplication(AdoptionRequest request) {
-		System.out.println("---- Manager LOG -----");
+		System.out.println("---- Manager LOG (받은메시지) -----");
 		System.out.println(request);
+		adoptionRepo.save(request);
 	}
 }

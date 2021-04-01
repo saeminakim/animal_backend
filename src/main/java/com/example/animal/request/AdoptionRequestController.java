@@ -33,7 +33,7 @@ public class AdoptionRequestController {
 	@PostMapping(value = "/apply")
 	public AdoptionRequest createApplication(@RequestBody AdoptionRequest request) {
 		
-		// 입양신청번호 생성
+		// 입양신청번호 생성( YYYYMM + 랜덤문자4개 )
 		String uniqueId = "";
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
 		Calendar date = Calendar.getInstance();
@@ -51,7 +51,7 @@ public class AdoptionRequestController {
 
 	// 1건 조회 (신청번호, 이름으로)
 	@GetMapping(value = "/apply/search")
-	public @ResponseBody List<AdoptionRequest> getApplication(@RequestParam("requestNo") long requestNo,
+	public @ResponseBody List<AdoptionRequest> getApplication(@RequestParam("requestNo") String requestNo,
 			@RequestParam("name") String name, HttpServletResponse res) {
 		List<AdoptionRequest> app = adoptionRepo.findByRequestNoAndName(requestNo, name);
 
@@ -104,11 +104,11 @@ public class AdoptionRequestController {
 			return false;
 		}
 		
-		// 1. 입양취소 이유를 입양희망 컬럼에 저장		
+		// 1. 입양취소 이유를 입양희망이유 컬럼에 저장		
 		adoptionRepo.save(request);
 		
 		// 2. 관리자에게 메시지 전송
-		service.deleteApplication(app);
+		service.cancelApplication(app);
 		
 		return true;
 	}
