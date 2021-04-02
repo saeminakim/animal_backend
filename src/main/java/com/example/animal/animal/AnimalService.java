@@ -5,22 +5,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.xml.sax.SAXException;
 
-import com.example.animal.animal.AnimalResponse.ResponseItem;
 import com.google.gson.Gson;
 
 @Service
@@ -177,4 +169,6 @@ public class AnimalService {
 		}
 
 	}
+	
+	
 }

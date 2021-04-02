@@ -3,6 +3,7 @@ package com.example.animal.animal;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -24,8 +25,15 @@ public class AnimalController {
 
 	// 목록 조회
 	@GetMapping(value = "/animals")
-	public Page<Animal> getAnimalList(@RequestParam("page") int page, @RequestParam("size") int size) {
-		return animalRepo.findAll(PageRequest.of(page, size, Sort.by("happenDt").descending()));
+	public Page<Animal> getAnimalList(@RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+		Page<Animal> animal = animalRepo.findAll(PageRequest.of(page, size, Sort.by("happenDt").descending()));
+		
+		if(animal.isEmpty()) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}
+		
+		return animal;
 	}
 
 	// id로 1건 조회
@@ -41,10 +49,102 @@ public class AnimalController {
 	}
 
 	// 시도 검색 
-	@GetMapping(value = "/animals/filter")
-	public Page<Animal> getAnimalListBySido(@RequestParam("sido") String sido, @RequestParam("page") int page, @RequestParam("size") int size) {
+	@GetMapping(value = "/animals/filter/sido")
+	public Page<Animal> getAnimalListBySido(@RequestParam("sido") String sido, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
 
-		return animalRepo.findBySido(sido, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+		Page<Animal> animal = animalRepo.findBySido(sido, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+		
+		if(animal.isEmpty()) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}
+		
+		return animal;
+	}
+	
+	// 시도/축종 검색 
+	@GetMapping(value = "/animals/filter/sido-type")
+	public Page<Animal> getAnimalListBySidoAndType(@RequestParam("sido") String sido, @RequestParam("type") String type, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+
+		Page<Animal> animal = animalRepo.findBySidoAndType(sido, type, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+		
+		if(animal.isEmpty()) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}
+		
+		return animal;
+	}
+	
+	// 시도/축종/상태 검색 
+	@GetMapping(value = "/animals/filter/sido-type-status")
+	public Page<Animal> getAnimalListBySidoAndTypeAndProcessState(@RequestParam("sido") String sido, @RequestParam("type") String type, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+
+		Page<Animal> animal = animalRepo.findBySidoAndTypeAndProcessState(sido, type, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+		
+		if(animal.isEmpty()) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}
+		
+		return animal;
+		
+	}
+	
+	// 축종 검색 
+	@GetMapping(value = "/animals/filter/type")
+	public Page<Animal> getAnimalListByType(@RequestParam("type") String type, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+
+		Page<Animal> animal = animalRepo.findByType(type, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+		
+		if(animal.isEmpty()) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}
+		
+		return animal;
+	}
+	
+	// 축종/상태 검색 
+	@GetMapping(value = "/animals/filter/type-status")
+	public Page<Animal> getAnimalListByTypeAndStatus(@RequestParam("type") String type, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+
+		Page<Animal> animal = animalRepo.findByTypeAndProcessState(type, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+		
+		if(animal.isEmpty()) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}
+		
+		return animal;
+	}
+	
+	// 시도/상태 검색 
+	@GetMapping(value = "/animals/filter/sido-status")
+	public Page<Animal> getAnimalListBySidoAndStatus(@RequestParam("sido") String sido, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+
+		Page<Animal> animal = animalRepo.findBySidoAndProcessState(sido, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+		
+		if(animal.isEmpty()) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}
+		
+		return animal;
+	}
+	
+	// 상태 검색 
+	@GetMapping(value = "/animals/filter/status")
+	public Page<Animal> getAnimalListByStatus(@RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+
+		Page<Animal> animal = animalRepo.findByProcessState(status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+		
+		if(animal.isEmpty()) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}
+		
+		return animal;
 	}
 
 }
