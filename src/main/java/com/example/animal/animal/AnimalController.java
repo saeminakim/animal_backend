@@ -76,6 +76,20 @@ public class AnimalController {
 		return animal;
 	}
 	
+	// 시도/구군/축종 검색 
+	@GetMapping(value = "/animals/filter/sido-gugun-type")
+	public Page<Animal> getAnimalListBySidoAndGugunAndType(@RequestParam("sido") String sido, @RequestParam("gugun") String gugun, @RequestParam("type") String type, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+
+		Page<Animal> animal = animalRepo.findBySidoAndGugunAndType(sido, gugun, type, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+
+		if(animal.isEmpty()) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}
+
+		return animal;
+	}
+	
 	// 시도/축종/상태 검색 
 	@GetMapping(value = "/animals/filter/sido-type-status")
 	public Page<Animal> getAnimalListBySidoAndTypeAndProcessState(@RequestParam("sido") String sido, @RequestParam("type") String type, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
@@ -89,6 +103,21 @@ public class AnimalController {
 		
 		return animal;
 		
+	}
+	
+	// 시도/구군/축종/상태 검색 
+	@GetMapping(value = "/animals/filter/sido-gugun-type-status")
+	public Page<Animal> getAnimalListBySidoAndGugunAndTypeAndProcessState(@RequestParam("sido") String sido, @RequestParam("gugun") String gugun, @RequestParam("type") String type, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+
+		Page<Animal> animal = animalRepo.findBySidoAndGugunAndTypeAndProcessState(sido, gugun, type, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+
+		if(animal.isEmpty()) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}
+
+		return animal;
+
 	}
 	
 	// 축종 검색 
@@ -130,6 +159,20 @@ public class AnimalController {
 			return null;
 		}
 		
+		return animal;
+	}
+	
+	// 시도/구군/상태 검색 
+	@GetMapping(value = "/animals/filter/sido-gugun-status")
+	public Page<Animal> getAnimalListBySidoAndGugunAndStatus(@RequestParam("sido") String sido, @RequestParam("gugun") String gugun, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+
+		Page<Animal> animal = animalRepo.findBySidoAndGugunAndProcessState(sido, gugun, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+
+		if(animal.isEmpty()) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}
+
 		return animal;
 	}
 	
