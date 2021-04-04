@@ -86,7 +86,7 @@ public class AnimalController {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			return null;
 		}
-
+		
 		return animal;
 	}
 	
