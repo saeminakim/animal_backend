@@ -17,15 +17,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.animal.animal.Animal;
+import com.example.animal.animal.AnimalRepository;
+
 
 @RestController
 public class AdoptionRequestController {
 	private AdoptionRequestRepository adoptionRepo;
+	private AnimalRepository animalRepo;
 	private AdoptionRequestService service;
 
 	@Autowired
-	AdoptionRequestController(AdoptionRequestRepository adoptionRepo, AdoptionRequestService service) {
+	AdoptionRequestController(AdoptionRequestRepository adoptionRepo, AnimalRepository animalRepo, AdoptionRequestService service) {
 		this.adoptionRepo = adoptionRepo;
+		this.animalRepo = animalRepo;
 		this.service = service;
 	}
 
@@ -41,8 +46,15 @@ public class AdoptionRequestController {
 		
 		uniqueId = uniqueId + RandomStringUtils.randomAlphanumeric(4);
 		
-		request.setRequestNo(uniqueId);
+		request.setRequestNo(uniqueId);		
 		System.out.println(request);
+		
+		// 해당 동물의 상태를 "입양신청"으로 변경
+		long animalId = request.getAnimalId();
+		Animal animal = animalRepo.findById(animalId).orElse(null);
+		
+		animal.setProcessState("입양신청");
+		animalRepo.save(animal);
 		
 		adoptionRepo.save(request);
 		service.sendApplication(request);

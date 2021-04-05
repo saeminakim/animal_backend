@@ -17,7 +17,7 @@ public class AdoptionRequest {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String requestNo;
-	private int animalId;
+	private long animalId;
 	private String noticeNo;
 	private String name;
 	private String mobile;

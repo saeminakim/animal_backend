@@ -11,7 +11,7 @@ public interface AnimalRepository extends JpaRepository<Animal, Long>{
 	
 	public Page<Animal> findBySido(String sido, Pageable pageable);
 	
-	public Page<Animal> findBySidoGugun(String sido, String gugun, Pageable pageable);
+	public Page<Animal> findBySidoAndGugun(String sido, String gugun, Pageable pageable);
 	
 	public Page<Animal> findBySidoAndType(String sido, String type, Pageable pageable);
 	

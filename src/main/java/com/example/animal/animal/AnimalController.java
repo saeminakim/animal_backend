@@ -62,6 +62,20 @@ public class AnimalController {
 		return animal;
 	}
 	
+	// 시도/구군 검색 
+	@GetMapping(value = "/animals/filter/sido-gugun")
+	public Page<Animal> getAnimalListBySidoAndGugun(@RequestParam("sido") String sido, @RequestParam("gugun") String gugun, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+
+		Page<Animal> animal = animalRepo.findBySidoAndGugun(sido, gugun, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+		
+		if(animal.isEmpty()) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}
+		
+		return animal;
+	}
+	
 	// 시도/축종 검색 
 	@GetMapping(value = "/animals/filter/sido-type")
 	public Page<Animal> getAnimalListBySidoAndType(@RequestParam("sido") String sido, @RequestParam("type") String type, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
@@ -81,6 +95,8 @@ public class AnimalController {
 	public Page<Animal> getAnimalListBySidoAndGugunAndType(@RequestParam("sido") String sido, @RequestParam("gugun") String gugun, @RequestParam("type") String type, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
 
 		Page<Animal> animal = animalRepo.findBySidoAndGugunAndType(sido, gugun, type, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+		System.out.println("시도/구군/타입");
+		System.out.println(animal);
 
 		if(animal.isEmpty()) {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
