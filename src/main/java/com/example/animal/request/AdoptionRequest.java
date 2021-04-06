@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 public class AdoptionRequest {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
+	private int adoptionId;
 	private String requestNo;
 	private long animalId;
 	private String noticeNo;

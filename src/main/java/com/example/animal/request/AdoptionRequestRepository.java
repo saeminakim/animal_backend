@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AdoptionRequestRepository extends JpaRepository<AdoptionRequest, Integer> {
+public interface AdoptionRequestRepository extends JpaRepository<AdoptionRequest, Long> {
 	public List<AdoptionRequest> findByRequestNoAndName(String requestNo, String name);
 
 }

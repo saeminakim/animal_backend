@@ -46,7 +46,8 @@ public class AdoptionRequestController {
 		
 		uniqueId = uniqueId + RandomStringUtils.randomAlphanumeric(4);
 		
-		request.setRequestNo(uniqueId);		
+		request.setRequestNo(uniqueId);	
+		request.setStatus("입양신청");
 		System.out.println(request);
 		
 		// 해당 동물의 상태를 "입양신청"으로 변경
@@ -76,9 +77,11 @@ public class AdoptionRequestController {
 
 	// 1건 조회 (id로)
 	@GetMapping(value = "/apply/search/{id}")
-	public @ResponseBody AdoptionRequest getApplicationById(@PathVariable("id") int id, HttpServletResponse res) {
+	public @ResponseBody AdoptionRequest getApplicationById(@PathVariable("id") long id, HttpServletResponse res) {
 
 		AdoptionRequest request = adoptionRepo.findById(id).orElse(null);
+		System.out.println("입양신청서 조회" + request);
+		System.out.println(request);
 
 		if (request == null) {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -89,7 +92,7 @@ public class AdoptionRequestController {
 
 	// 1건 수정
 	@PatchMapping(value = "/apply/{id}")
-	public AdoptionRequest editApplication(@PathVariable("id") int id, @RequestBody AdoptionRequest request,
+	public AdoptionRequest editApplication(@PathVariable("id") long id, @RequestBody AdoptionRequest request,
 			HttpServletResponse res) {
 
 		AdoptionRequest app = adoptionRepo.findById(id).orElse(null);
@@ -100,14 +103,14 @@ public class AdoptionRequestController {
 		}
 
 		adoptionRepo.save(request);
-		service.sendApplication(request);
+//		service.sendApplication(request);
 
 		return app;
 	}
 
 	// 취소 요청
 	@PatchMapping(value = "/cancel/{id}")
-	public boolean cancelApplication(@PathVariable("id") int id, @RequestBody AdoptionRequest request, HttpServletResponse res) {
+	public boolean cancelApplication(@PathVariable("id") long id, @RequestBody AdoptionRequest request, HttpServletResponse res) {
 		
 		AdoptionRequest app = adoptionRepo.findById(id).orElse(null);
 		

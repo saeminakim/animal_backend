@@ -3,6 +3,7 @@ package com.example.animal.animal;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -65,8 +66,5 @@ public class Animal {
 		this.processState = res.getProcessState();
 
 	}
-
-	@OneToMany
-	private List<AdoptionRequest> registeredRequest;
 	
 }
