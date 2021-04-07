@@ -60,8 +60,6 @@ public class AnimalService {
 			builder.append("&endde=" + today);
 			builder.append("&pageNo=" + page);
 			builder.append("&numOfRows=100");
-			// builder.append("&pageNo=1&numOfRows=10");
-			// builder.append("&numOfRows=30");
 
 			URL url = new URL(builder.toString());
 
@@ -69,37 +67,11 @@ public class AnimalService {
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 			// 3. 데이터 읽어오기. 스트림 읽어서 리더 객체로 변환
-			byte[] result = con.getInputStream().readAllBytes();
+			byte[] result = con.getInputStream().readAllBytes();			
 
 			// 4. 문자열로 변환
-			String data = new String(result);
-			
-//			SAXParserFactory factory = SAXParserFactory.newInstance();
-//			try {
-//				SAXParser parser = factory.newSAXParser();
-//				AnimalHandler handler = new AnimalHandler();
-//				parser.parse(data, handler);
-//				
-//				List<Animal> list = handler.getAnimalList();
-//				System.out.println("------리스트------");
-//				System.out.println(list);
-//				
-//				for(Animal a : list) {
-//					System.out.println("동물 정보 : " + a);
-//				}
-//				
-//				
-//
-//				
-//			} catch (ParserConfigurationException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (SAXException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			
-//
+			String data = new String(result);			
+
 			// 5. XML -> JSON 변환
 			JSONObject json = XML.toJSONObject(data);
 
@@ -113,7 +85,6 @@ public class AnimalService {
 			totalCount = res.getResponse().getBody().getTotalCount();
 
 			// 7. 응답 데이터 가공
-
 			for (AnimalResponse.ResponseItem item : res.getResponse().getBody().getItems().getItem()) {
 
 				Animal animal = new Animal(item);
@@ -157,7 +128,7 @@ public class AnimalService {
 				}
 			}
 
-//			 총 공고 페이지 수만큼 반복문 실행
+			// 총 공고 페이지 수만큼 반복문 실행
 			page += 1;
 			double pageDouble = (double)totalCount / 100;
 			int pageCount = (int)Math.round(pageDouble);

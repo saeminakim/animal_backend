@@ -123,7 +123,7 @@ public class AdoptionRequestController {
 		adoptionRepo.save(request);
 		
 		// 2. 관리자에게 메시지 전송
-		service.cancelApplication(app);
+		service.sendApplication(app);
 		
 		return true;
 	}

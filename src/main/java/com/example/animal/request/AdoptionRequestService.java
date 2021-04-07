@@ -26,7 +26,7 @@ public class AdoptionRequestService {
 		this.animalRepo = animalRepo;
 	}
 	
-	// 새 입양신청서 관리자에게 전송 
+	// 입양신청서 관리자에게 전송 
 	public void sendApplication(AdoptionRequest request) {
 		System.out.println("-----SEND APPLICATION-----");
 		System.out.println(request);
@@ -39,30 +39,17 @@ public class AdoptionRequestService {
 		
 	}
 	
-	// 취소 요청 관리자에게 전송
-	public void cancelApplication(AdoptionRequest request) {
-		System.out.println("-----CANCEL APPLICATION-----");
-		
-		try {
-			rabbit.convertAndSend("adoption.request", request);
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
-	
-	// 새 입양신청서 후기에 전송 
-//	public void sendToReview(AdoptionRequest request) {
-//		System.out.println("-----SEND TO REVIEW -----");
-//		System.out.println(request);
+//	// 취소 요청 관리자에게 전송
+//	public void cancelApplication(AdoptionRequest request) {
+//		System.out.println("-----CANCEL APPLICATION-----");
 //		
 //		try {
-//			rabbit.convertAndSend("adoption.status", request);
-//			rabbit.convertAndSend("adoption.status", animal);
+//			rabbit.convertAndSend("adoption.request", request);
 //		} catch(Exception e) {
 //			System.out.println(e.getMessage());
 //		}
-//		
 //	}
+
 	
 	// 보낸 메시지 받아주는 메소드
 //	(queues = "manager.application.status")
@@ -111,7 +98,7 @@ public class AdoptionRequestService {
 			animal.setProcessState("보호중");
 			animalRepo.save(animal);			
 		} else {
-			animal.setProcessState("입양완료");
+			animal.setProcessState("🧡 입양완료");
 			animalRepo.save(animal);
 			System.out.println(animal);			
 		}
