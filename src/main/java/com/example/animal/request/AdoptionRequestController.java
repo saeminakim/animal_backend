@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.animal.animal.Animal;
 import com.example.animal.animal.AnimalRepository;
+import com.example.animal.secutiry.Auth;
 
 
 @RestController
@@ -35,6 +36,7 @@ public class AdoptionRequestController {
 	}
 
 	// 1건 추가
+	@Auth
 	@PostMapping(value = "/apply")
 	public AdoptionRequest createApplication(@RequestBody AdoptionRequest request) {
 		

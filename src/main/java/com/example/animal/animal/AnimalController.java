@@ -123,7 +123,7 @@ public class AnimalController {
 	
 	// 시도/구군/축종/상태 검색 
 	@GetMapping(value = "/animals/filter/sido-gugun-type-status")
-	public Page<Animal> getAnimalListBySidoAndGugunAndTypeAndProcessState(@RequestParam("sido") String sido, @RequestParam("gugun") String gugun, @RequestParam("type") String type, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+	public Page<Animal> getAnimalListBySidoAndGugunAndTypeAndStatus(@RequestParam("sido") String sido, @RequestParam("gugun") String gugun, @RequestParam("type") String type, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
 
 		Page<Animal> animal = animalRepo.findBySidoAndGugunAndTypeAndProcessState(sido, gugun, type, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
 
