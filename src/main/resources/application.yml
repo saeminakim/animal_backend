@@ -35,8 +35,7 @@ spring:
         order_inserts: true
         order_updates: true
         
-
-  
+ 
 #eureka:
 #  client:
 #    serviceUrl:
@@ -59,6 +58,7 @@ spring:
     host: 13.124.190.225
     port: 6379
     password: foobared
+    
 eureka:
   client:
     service-url:
@@ -67,4 +67,5 @@ eureka:
       default-zone: http://13.124.190.225:8761/eureka/
   instance:
     # 서비스가 실행되는 ec2주소 (자기꺼)
-    hostname: ec2-13-124-190-225.ap-northeast-2.compute.amazonaws.com
+    hostname: ec2-13-124-190-225.ap-northeast-2.compute.amazonaws.com    
+
