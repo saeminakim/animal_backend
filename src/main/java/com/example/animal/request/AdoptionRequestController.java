@@ -105,7 +105,6 @@ public class AdoptionRequestController {
 		}
 
 		adoptionRepo.save(request);
-//		service.sendApplication(request);
 
 		return app;
 	}
