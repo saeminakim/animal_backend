@@ -36,7 +36,7 @@ public class AdoptionRequestController {
 	}
 
 	// 1건 추가
-	@Auth
+//	@Auth
 	@PostMapping(value = "/apply")
 	public AdoptionRequest createApplication(@RequestBody AdoptionRequest request) {
 		
@@ -65,10 +65,23 @@ public class AdoptionRequestController {
 	}
 
 	// 1건 조회 (신청번호, 이름으로)
-	@GetMapping(value = "/apply/search")
+	@GetMapping(value = "/apply/search/requestno")
 	public @ResponseBody List<AdoptionRequest> getApplication(@RequestParam("requestNo") String requestNo,
 			@RequestParam("name") String name, HttpServletResponse res) {
 		List<AdoptionRequest> app = adoptionRepo.findByRequestNoAndName(requestNo, name);
+
+		if (app.isEmpty()) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}
+		return app;
+	}
+	
+	// 1건 조회 (이메일)
+	@GetMapping(value = "/apply/search/email")
+	public @ResponseBody List<AdoptionRequest> getApplicationByEmail(@RequestParam("email") String email,
+			HttpServletResponse res) {
+		List<AdoptionRequest> app = adoptionRepo.findByEmail(email);
 
 		if (app.isEmpty()) {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);

@@ -8,5 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdoptionRequestRepository extends JpaRepository<AdoptionRequest, Long> {
 	public List<AdoptionRequest> findByRequestNoAndName(String requestNo, String name);
+	
+	public List<AdoptionRequest> findByEmail(String email);
 
 }
