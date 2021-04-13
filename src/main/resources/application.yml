@@ -1,5 +1,3 @@
-#myworkspace 참고해서 작성
-
 server:
   port: 8080
   
@@ -12,12 +10,10 @@ spring:
     active: default 
   rabbitmq:
     host: ec2-13-124-221-31.ap-northeast-2.compute.amazonaws.com
-
     username: rabbitmq
     password: password123
-    #database 접속 정보    
+      
   datasource:
-        #jdbc:mysql://엔드포인트 복붙/데이터베이스(스키마)?옵션
     url: jdbc:mysql://mysql-1.co2rhj8bx4dt.ap-northeast-2.rds.amazonaws.com/animal?useUnicode=true&characterEncoding=utf-8&rewriteBatchedStatements=true
     username: admin
     password: password123!
@@ -26,8 +22,8 @@ spring:
     host: 127.0.0.1
     port: 6379
   jpa:
-    show-sql: true #데이터처리할 때 SQL문을 보여줌
-    generate-ddl: true #클래스 정의에 따른 테이블 및 데이터베이스 객체 생성, repository와 entity가 있으면 객체 만들어짐  
+    show-sql: true 
+    generate-ddl: true  
     properties:      hibernate:
         generate_statistics: true
         jdbc:
@@ -36,19 +32,12 @@ spring:
         order_updates: true
         
  
-#eureka:
-#  client:
-#    serviceUrl:
-#    # 유레카 서버의 주소를 작성
-#    # 유레카의 로컬 ip 주소
-#      defaultZone: http://192.168.0.28:8761/eureka/
-#  instance:
-#    # 클라이언트의 주소 (자기 자신 서비스의 호스트명 ip address 또는 domain name)
-#    # AWS에서는 hostname: 52.234.22.34 퍼블릭 IP를 안 쓰면
-#    # 172.333... 사설 IP 대역으로 나옴
-#    # hostname : 필수적으로 자기 퍼블릭 ip나 도메인 넣어야함
-#    # 본인 서비스의 로컬 ip 주소 (자기꺼 주소)
-#    hostname: 192.168.0.28
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.0.28:8761/eureka/
+  instance:
+    hostname: 192.168.0.28
 
 
 --- 
@@ -62,10 +51,7 @@ spring:
 eureka:
   client:
     service-url:
-      # 유레카의 ec2 주소
-      # http://유레카의 ec2주소:8761/eureka/
       default-zone: http://13.124.190.225:8761/eureka/
   instance:
-    # 서비스가 실행되는 ec2주소 (자기꺼)
     hostname: ec2-13-124-190-225.ap-northeast-2.compute.amazonaws.com    
 

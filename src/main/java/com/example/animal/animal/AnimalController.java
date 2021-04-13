@@ -108,7 +108,7 @@ public class AnimalController {
 	
 	// 시도/축종/상태 검색 
 	@GetMapping(value = "/animals/filter/sido-type-status")
-	public Page<Animal> getAnimalListBySidoAndTypeAndProcessState(@RequestParam("sido") String sido, @RequestParam("type") String type, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+	public Page<Animal> getAnimalListBySidoAndTypeAndProcessStateContaining(@RequestParam("sido") String sido, @RequestParam("type") String type, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
 
 		Page<Animal> animal = animalRepo.findBySidoAndTypeAndProcessStateContaining(sido, type, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
 		
@@ -123,7 +123,7 @@ public class AnimalController {
 	
 	// 시도/구군/축종/상태 검색 
 	@GetMapping(value = "/animals/filter/sido-gugun-type-status")
-	public Page<Animal> getAnimalListBySidoAndGugunAndTypeAndStatus(@RequestParam("sido") String sido, @RequestParam("gugun") String gugun, @RequestParam("type") String type, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+	public Page<Animal> getAnimalListBySidoAndGugunAndTypeAndStatusContaining(@RequestParam("sido") String sido, @RequestParam("gugun") String gugun, @RequestParam("type") String type, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
 
 		Page<Animal> animal = animalRepo.findBySidoAndGugunAndTypeAndProcessStateContaining(sido, gugun, type, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
 
@@ -152,7 +152,7 @@ public class AnimalController {
 	
 	// 축종/상태 검색 
 	@GetMapping(value = "/animals/filter/type-status")
-	public Page<Animal> getAnimalListByTypeAndStatus(@RequestParam("type") String type, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+	public Page<Animal> getAnimalListByTypeAndStatusContaining(@RequestParam("type") String type, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
 
 		Page<Animal> animal = animalRepo.findByTypeAndProcessStateContaining(type, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
 		
@@ -166,7 +166,7 @@ public class AnimalController {
 	
 	// 시도/상태 검색 
 	@GetMapping(value = "/animals/filter/sido-status")
-	public Page<Animal> getAnimalListBySidoAndStatus(@RequestParam("sido") String sido, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+	public Page<Animal> getAnimalListBySidoAndStatusContaining(@RequestParam("sido") String sido, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
 
 		Page<Animal> animal = animalRepo.findBySidoAndProcessStateContaining(sido, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
 		
@@ -180,7 +180,7 @@ public class AnimalController {
 	
 	// 시도/구군/상태 검색 
 	@GetMapping(value = "/animals/filter/sido-gugun-status")
-	public Page<Animal> getAnimalListBySidoAndGugunAndStatus(@RequestParam("sido") String sido, @RequestParam("gugun") String gugun, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+	public Page<Animal> getAnimalListBySidoAndGugunAndStatusContaining(@RequestParam("sido") String sido, @RequestParam("gugun") String gugun, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
 
 		Page<Animal> animal = animalRepo.findBySidoAndGugunAndProcessStateContaining(sido, gugun, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
 
@@ -194,7 +194,7 @@ public class AnimalController {
 	
 	// 상태 검색 
 	@GetMapping(value = "/animals/filter/status")
-	public Page<Animal> getAnimalListByStatus(@RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
+	public Page<Animal> getAnimalListByStatusContaining(@RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
 
 		Page<Animal> animal = animalRepo.findByProcessStateContaining(status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
 		
