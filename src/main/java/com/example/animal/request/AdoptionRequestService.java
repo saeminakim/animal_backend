@@ -39,18 +39,7 @@ public class AdoptionRequestService {
 		
 	}
 	
-//	// 취소 요청 관리자에게 전송
-//	public void cancelApplication(AdoptionRequest request) {
-//		System.out.println("-----CANCEL APPLICATION-----");
-//		
-//		try {
-//			rabbit.convertAndSend("adoption.request", request);
-//		} catch(Exception e) {
-//			System.out.println(e.getMessage());
-//		}
-//	}
 
-	
 	// 보낸 메시지 받아주는 메소드
 //	(queues = "manager.application.status")
 	@RabbitListener(bindings = {

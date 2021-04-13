@@ -110,7 +110,7 @@ public class AnimalController {
 	@GetMapping(value = "/animals/filter/sido-type-status")
 	public Page<Animal> getAnimalListBySidoAndTypeAndProcessState(@RequestParam("sido") String sido, @RequestParam("type") String type, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
 
-		Page<Animal> animal = animalRepo.findBySidoAndTypeAndProcessState(sido, type, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+		Page<Animal> animal = animalRepo.findBySidoAndTypeAndProcessStateContaining(sido, type, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
 		
 		if(animal.isEmpty()) {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -125,7 +125,7 @@ public class AnimalController {
 	@GetMapping(value = "/animals/filter/sido-gugun-type-status")
 	public Page<Animal> getAnimalListBySidoAndGugunAndTypeAndStatus(@RequestParam("sido") String sido, @RequestParam("gugun") String gugun, @RequestParam("type") String type, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
 
-		Page<Animal> animal = animalRepo.findBySidoAndGugunAndTypeAndProcessState(sido, gugun, type, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+		Page<Animal> animal = animalRepo.findBySidoAndGugunAndTypeAndProcessStateContaining(sido, gugun, type, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
 
 		if(animal.isEmpty()) {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -154,7 +154,7 @@ public class AnimalController {
 	@GetMapping(value = "/animals/filter/type-status")
 	public Page<Animal> getAnimalListByTypeAndStatus(@RequestParam("type") String type, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
 
-		Page<Animal> animal = animalRepo.findByTypeAndProcessState(type, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+		Page<Animal> animal = animalRepo.findByTypeAndProcessStateContaining(type, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
 		
 		if(animal.isEmpty()) {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -168,7 +168,7 @@ public class AnimalController {
 	@GetMapping(value = "/animals/filter/sido-status")
 	public Page<Animal> getAnimalListBySidoAndStatus(@RequestParam("sido") String sido, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
 
-		Page<Animal> animal = animalRepo.findBySidoAndProcessState(sido, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+		Page<Animal> animal = animalRepo.findBySidoAndProcessStateContaining(sido, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
 		
 		if(animal.isEmpty()) {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -182,7 +182,7 @@ public class AnimalController {
 	@GetMapping(value = "/animals/filter/sido-gugun-status")
 	public Page<Animal> getAnimalListBySidoAndGugunAndStatus(@RequestParam("sido") String sido, @RequestParam("gugun") String gugun, @RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
 
-		Page<Animal> animal = animalRepo.findBySidoAndGugunAndProcessState(sido, gugun, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+		Page<Animal> animal = animalRepo.findBySidoAndGugunAndProcessStateContaining(sido, gugun, status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
 
 		if(animal.isEmpty()) {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -196,7 +196,7 @@ public class AnimalController {
 	@GetMapping(value = "/animals/filter/status")
 	public Page<Animal> getAnimalListByStatus(@RequestParam("status") String status, @RequestParam("page") int page, @RequestParam("size") int size, HttpServletResponse res) {
 
-		Page<Animal> animal = animalRepo.findByProcessState(status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
+		Page<Animal> animal = animalRepo.findByProcessStateContaining(status, PageRequest.of(page, size, Sort.by("happenDt").descending()));
 		
 		if(animal.isEmpty()) {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);

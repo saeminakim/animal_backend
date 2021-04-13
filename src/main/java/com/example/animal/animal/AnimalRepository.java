@@ -17,17 +17,17 @@ public interface AnimalRepository extends JpaRepository<Animal, Long>{
 	
 	public Page<Animal> findBySidoAndGugunAndType(String sido, String gugun, String type, Pageable pageable);
 	
-	public Page<Animal> findBySidoAndTypeAndProcessState(String sido, String type, String status, Pageable pageable);
+	public Page<Animal> findBySidoAndTypeAndProcessStateContaining(String sido, String type, String status, Pageable pageable);
 	
-	public Page<Animal> findBySidoAndGugunAndTypeAndProcessState(String sido, String gugun, String type, String status, Pageable pageable);
+	public Page<Animal> findBySidoAndGugunAndTypeAndProcessStateContaining(String sido, String gugun, String type, String status, Pageable pageable);
 	
 	public Page<Animal> findByType(String type, Pageable pageable);	
 	
-	public Page<Animal> findByTypeAndProcessState(String type, String status, Pageable pageable);
+	public Page<Animal> findByTypeAndProcessStateContaining(String type, String status, Pageable pageable);
 	
-	public Page<Animal> findBySidoAndProcessState(String sido, String status, Pageable pageable);
+	public Page<Animal> findBySidoAndProcessStateContaining(String sido, String status, Pageable pageable);
 	
-	public Page<Animal> findBySidoAndGugunAndProcessState(String sido, String gugun, String status, Pageable pageable);
+	public Page<Animal> findBySidoAndGugunAndProcessStateContaining(String sido, String gugun, String status, Pageable pageable);
 	
-	public Page<Animal> findByProcessState(String status, Pageable pageable);	
+	public Page<Animal> findByProcessStateContaining(String status, Pageable pageable);	
 }
