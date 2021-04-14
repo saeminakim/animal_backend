@@ -125,6 +125,14 @@ public class AnimalService {
 					if (savedAnimal == null) {
 						animalRepo.save(animal);
 					}
+				} else if (animal.getProcessState().contains("종료")) {
+
+					// 기존 DB에 있던 동물의 상태가 종료로 바뀌었다면 삭제  
+
+					Animal savedAnimal = animalRepo.findByNoticeNo(animal.getNoticeNo());
+					if (savedAnimal != null) {
+						animalRepo.delete(savedAnimal);
+					}
 				}
 			}
 
